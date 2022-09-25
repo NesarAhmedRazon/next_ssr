@@ -1,0 +1,63 @@
+.next_ssr_metabox {
+  display: block;
+  margin-bottom: 0.6rem;
+  &.half {
+    width: 50%;
+    float: left;
+  }
+  & .label {
+    margin-bottom: 0.2em;
+    font-weight: 500;
+    letter-spacing: 0.02em;
+    font-style: italic;
+  }
+}
+.radio_field {
+  display: flex;
+  overflow: hidden;
+  & input {
+    position: absolute !important;
+    clip: rect(0, 0, 0, 0);
+    height: 1px;
+    width: 1px;
+    border: 0;
+    overflow: hidden;
+    &:checked + label {
+      background-color: #3ba155;
+      color: #fff;
+      box-shadow: none;
+    }
+  }
+  &.boolian {
+    & input {
+      &:checked + label {
+        &:last-of-type {
+          background-color: #eb4d4b;
+        }
+      }
+    }
+  }
+  & label {
+    background-color: #f0f0f1;
+    color: #1d2366;
+    font-size: 1em;
+    line-height: 1;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    text-align: center;
+    padding: 0.8em 1.2em;
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    box-shadow: inset 0 1px 3px rgb(0 0 0 / 9%), 0 1px rgb(255 255 255 / 10%);
+    transition: all 0.3s ease-in-out;
+    &:hover {
+      cursor: pointer;
+      border: 1px solid rgba(0, 0, 0, 0.5);
+    }
+    &:first-of-type {
+      border-radius: 4px 0 0 4px;
+    }
+    &:last-of-type {
+      border-radius: 0 4px 4px 0;
+    }
+  }
+}
