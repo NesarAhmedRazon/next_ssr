@@ -36,12 +36,12 @@ if (!class_exists('next_ssr')) {
             add_action('admin_init', [$this, 'style_toAdmin']);
             add_action('wp_nav_menu_item_custom_fields', [$this, 'next_ssr_leveltwo_column'], 10, 2);
             add_action('wp_update_nav_menu_item', [$this, 'next_ssr_leveltwo_column_update'], 10, 2);
+            add_action('wp_update_nav_menu_item', [$this, 'babayfilter'], 10, 2);
             add_action('graphql_register_types', [$this, 'addToGraphQl']);
         }
 
         public function registe_menu_locations()
         {
-
             $locs = [
                 'cta' => 'CTA Buttons',
                 'copyright' => 'Copyright Menu',
@@ -53,7 +53,7 @@ if (!class_exists('next_ssr')) {
             );
         }
         /**
-         * 
+         *
          * Add FontAwsome Icon to Admin Panel
          */
         public function style_toAdmin()
@@ -68,19 +68,21 @@ if (!class_exists('next_ssr')) {
          *
          * This will allow us to play nicely with any other plugin that is adding the same hook
          *
-         * @param  int $id 
+         * @param  int $id
          * @params obj $item - the menu item
          * @params array $args
          */
 
         public function next_ssr_leveltwo_column($id, $item)
         {
-
             if ($item->menu_item_parent != 0) {
                 wp_nonce_field('l2meta', 'l2meta_nonce');
                 $value = get_post_meta($id, 'expand', true);
+
                 $this->radio_html($value, $id);
             }
+            $nesar = get_post_meta($id, 'children', true);
+            var_dump($nesar);
         }
 
         /**
@@ -127,27 +129,46 @@ if (!class_exists('next_ssr')) {
                 }
             ]);
         }
-
-
+        public function babayfilter($menu_id, $item_id)
+        {
+            $locations = get_nav_menu_locations();
+            $menu = get_term($locations['next_ssr_nav']);
+            $items = wp_get_nav_menu_items($menu->term_id);
+            if ($menu->term_id == $menu_id) {
+                update_post_meta($item_id, 'children', $this->babies($items, $item_id));
+            }
+        }
+        public function babies($items, $item_id)
+        {
+            $babies = [];
+            foreach ($items as $item) {
+                if ($item->menu_item_parent == $item_id) {
+                    $new = [
+                        'ID' => $item->ID,
+                        'title' => $item->title
+                    ];
+                    $babies[] = $new;
+                }
+            }
+            return $babies;
+        }
         /**
-         * 
+         *
          * Html For Radio Button
          */
         public function radio_html($value, $id)
         {
-?>
+            ?>
 
-<div class="field-description half next_ssr_metabox">
-    <div class="label">Expand Column</div>
-    <div class="radio_field boolian">
-        <input type="radio" id="radio-one-<?php echo $id; ?>" name="expand[<?php echo $id; ?>]" value="yes" checked
-            <?php checked($value, 'yes'); ?> />
-        <label for="radio-one-<?php echo $id; ?>">Yes</label>
-        <input type="radio" id="radio-two-<?php echo $id; ?>" name="expand[<?php echo $id; ?>]" value="no"
-            <?php checked($value, 'no'); ?> />
-        <label for="radio-two-<?php echo $id; ?>">No</label>
-    </div>
-</div>
+            <div class="field-description half next_ssr_metabox">
+                <div class="label">Expand Column</div>
+                <div class="radio_field boolian">
+                    <input type="radio" id="radio-one-<?php echo $id; ?>" name="expand[<?php echo $id; ?>]" value="yes" checked <?php checked($value, 'yes'); ?> />
+                    <label for="radio-one-<?php echo $id; ?>">Yes</label>
+                    <input type="radio" id="radio-two-<?php echo $id; ?>" name="expand[<?php echo $id; ?>]" value="no" <?php checked($value, 'no'); ?> />
+                    <label for="radio-two-<?php echo $id; ?>">No</label>
+                </div>
+            </div>
 <?php
         }
     }
