@@ -75,14 +75,12 @@ if (!class_exists('next_ssr')) {
 
         public function next_ssr_leveltwo_column($id, $item)
         {
-            if ($item->menu_item_parent != 0) {
+            $level = get_post_meta($id, 'level', true);
+            if ($level == 2) {
                 wp_nonce_field('l2meta', 'l2meta_nonce');
                 $value = get_post_meta($id, 'expand', true);
-
                 $this->radio_html($value, $id);
             }
-            $nesar = get_post_meta($id, 'children', true);
-            var_dump($nesar);
         }
 
         /**
@@ -136,6 +134,7 @@ if (!class_exists('next_ssr')) {
             $items = wp_get_nav_menu_items($menu->term_id);
             if ($menu->term_id == $menu_id) {
                 update_post_meta($item_id, 'children', $this->babies($items, $item_id));
+                update_post_meta($item_id, 'level', $this->checkLevel($items, $item_id));
             }
         }
         public function babies($items, $item_id)
@@ -151,6 +150,18 @@ if (!class_exists('next_ssr')) {
                 }
             }
             return $babies;
+        }
+        public function checkLevel($menuitems, $item, $i = 0)
+        {
+            $l = 1;
+            $i = $i + $l;
+            foreach ($menuitems as $itemkey) {
+                if (($itemkey->ID == $item) && ($itemkey->menu_item_parent != 0)) {
+                    $i = $this->checkLevel($menuitems, $itemkey->menu_item_parent, $i);
+                }
+            }
+
+            return $i;
         }
         /**
          *
