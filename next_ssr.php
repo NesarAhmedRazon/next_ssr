@@ -61,6 +61,7 @@ if (!class_exists('next_ssr')) {
             wp_enqueue_style('next_ssr_fa', 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css', '', '', 'all');
 
             wp_enqueue_style('next_ssr_tailwind', plugin_dir_url(__FILE__) . 'assets/styles/tailwindext.css', '', '', 'all');
+            wp_enqueue_media();
         }
 
         /**
@@ -173,7 +174,7 @@ if (!class_exists('next_ssr')) {
 
             <div class="field-description half next_ssr_metabox">
                 <div class="label">Expand Column</div>
-                <div class="radio_field boolian">
+                <div class="next_ssr_container boolian">
                     <input type="radio" id="radio-one-<?php echo $id; ?>" name="expand[<?php echo $id; ?>]" value="yes" checked <?php checked($value, 'yes'); ?> />
                     <label for="radio-one-<?php echo $id; ?>">Yes</label>
                     <input type="radio" id="radio-two-<?php echo $id; ?>" name="expand[<?php echo $id; ?>]" value="no" <?php checked($value, 'no'); ?> />

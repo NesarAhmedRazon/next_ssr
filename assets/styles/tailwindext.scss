@@ -1,9 +1,10 @@
 .next_ssr_metabox {
   display: block;
   margin-bottom: 0.6rem;
+  float: left;
+  width: 100%;
   &.half {
     width: 50%;
-    float: left;
   }
   & .label {
     margin-bottom: 0.2em;
@@ -12,9 +13,10 @@
     font-style: italic;
   }
 }
-.radio_field {
+.next_ssr_container {
   display: flex;
   overflow: hidden;
+  position: relative;
   & input {
     position: absolute !important;
     clip: rect(0, 0, 0, 0);
@@ -46,18 +48,54 @@
     letter-spacing: 0.05em;
     text-align: center;
     padding: 0.8em 1.2em;
-    border: 1px solid rgba(0, 0, 0, 0.2);
-    box-shadow: inset 0 1px 3px rgb(0 0 0 / 9%), 0 1px rgb(255 255 255 / 10%);
+    border: 1px solid #00000033;
+    box-shadow: 0 1px #ffffff1a;
     transition: all 0.3s ease-in-out;
     &:hover {
       cursor: pointer;
       border: 1px solid rgba(0, 0, 0, 0.5);
     }
-    &:first-of-type {
-      border-radius: 4px 0 0 4px;
+  }
+  .icondel {
+    width: 1.7rem;
+    background: #ccd0d4;
+    position: absolute;
+    right: 0;
+    top: 0;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    transition-duration: 0.3s;
+    transition-property: all;
+    opacity: 0;
+    &:hover {
+      background-color: #eb4d4b;
+      color: #fff;
+      opacity: 1;
     }
-    &:last-of-type {
-      border-radius: 0 4px 4px 0;
+    &.hide {
+      display: none;
+    }
+  }
+  &:hover {
+    & .icondel {
+      opacity: 0.3;
+    }
+  }
+  & .imgPrev {
+    display: flex;
+    position: relative;
+    justify-content: center;
+    align-items: center;
+    max-height: 4rem;
+    padding: 0.3rem;
+    flex-grow: 1;
+    border: 1px solid #00000033;
+    & .icon {
+      max-width: 90%;
+      max-height: 90%;
     }
   }
 }
