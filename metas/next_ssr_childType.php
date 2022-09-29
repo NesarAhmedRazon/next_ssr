@@ -84,7 +84,7 @@ final class MetaChildItemLayout extends next_ssr
             if ($level == 3) {
                 $icon = get_post_meta($id, 'childlayout_image', true);
                 $this->childlayout_image_html($icon, $id);
-                var_dump($icon);
+                $this->childlayout_nextIcon_html($icon, $id);
             }
         }
     }
@@ -181,7 +181,43 @@ final class MetaChildItemLayout extends next_ssr
 </div>
 <?php
     }
+    public function childlayout_nextIcon_html($icon_data, $id)
+    {
+        $icons = [
+            [
+                'name' => 'Users',
+                'file' => 'assets/nextIcons/Users.svg',
+            ],
+            [
+                'name' => 'GraduationCap',
+                'file' => 'assets/nextIcons/GraduationCap.svg',
+            ],
+            [
+                'name' => 'Boxes',
+                'file' => 'assets/nextIcons/Boxes.svg',
+            ],
+            [
+                'name' => 'HeadSet',
+                'file' => 'assets/nextIcons/HeadSet.svg',
+            ]
+        ]
+    ?>
+<div class="field-description next_ssr_metabox">
+    <div class="label">NextJs Icon</div>
 
+    <div class="options">
+
+        <?php
+                foreach ($icons as $icon) {
+                    echo '<div class="option">';
+                    echo '<input class="radio_input" type="radio" hidden name="color" value="" id="color-" />';
+                    echo '<label for=""><img src="' . plugin_dir_url(dirname(__FILE__)) . $icon['file'] . '" alt="' . $icon['name'] . '" /></label>';
+                    echo '</div>';
+                } ?>
+    </div>
+</div>
+<?php
+    }
     public function childlayout_image_html($icon, $id)
     {
         $img = "";
