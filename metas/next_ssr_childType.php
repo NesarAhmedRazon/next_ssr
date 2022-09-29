@@ -52,19 +52,16 @@ final class MetaChildItemLayout extends next_ssr
                 $data['type'] = $childlayout = get_post_meta($menu_item->databaseId, 'childlayout', true);
                 if ($childlayout == 'list') {
                     $data['display'] = get_post_meta($menu_item->databaseId, 'childlayout_listtype', true);
-                    $icon = get_post_meta($menu_item->databaseId, 'childlayout_listIcon', true);
-                    if (!empty($icon)) {
-                        $imgurl    = wp_get_attachment_image_src($icon, 'full');
-                        $data['icon'] = $imgurl[0];
-                    }
-                } elseif ($childlayout == 'image') {
-                    $data['display'] = get_post_meta($menu_item->databaseId, 'childlayout_image', true);
                 } elseif ($childlayout == 'testimonial') {
                     $data['display'] = get_post_meta($menu_item->databaseId, 'childlayout_testimonial', true);
                 } else {
                     $data['display'] = "";
                 }
-
+                $icon = get_post_meta($menu_item->databaseId, 'childlayout_image', true);
+                if (!empty($icon)) {
+                    $imgurl    = wp_get_attachment_image_src($icon, 'full');
+                    $data['icon'] = $imgurl[0];
+                }
 
                 return $data;
             }
@@ -87,6 +84,7 @@ final class MetaChildItemLayout extends next_ssr
             if ($level == 3) {
                 $icon = get_post_meta($id, 'childlayout_image', true);
                 $this->childlayout_image_html($icon, $id);
+                var_dump($icon);
             }
         }
     }
@@ -136,90 +134,110 @@ final class MetaChildItemLayout extends next_ssr
     // Html For Meta Boxes
     public function childlayout_radio_html($value, $id)
     {
-        ?>
+?>
 
-        <div class="field-description half next_ssr_metabox">
-            <div class="label">Children Layout</div>
-            <div class="next_ssr_container">
-                <input type="radio" id="childlayout-one-<?php echo $id; ?>" name="childlayout[<?php echo $id; ?>]" value="list" checked <?php checked($value, "list"); ?> />
-                <label for="childlayout-one-<?php echo $id; ?>"><i class="fa fa-list-alt" aria-hidden="true"></i></label>
-                <input type="radio" id="childlayout-two-<?php echo $id; ?>" name="childlayout[<?php echo $id; ?>]" value="image" <?php checked($value, "image"); ?> />
-                <label for="childlayout-two-<?php echo $id; ?>"><i class="fa fa-id-card-o" aria-hidden="true"></i></label>
-                <input type="radio" id="childlayout-three-<?php echo $id; ?>" name="childlayout[<?php echo $id; ?>]" value="testimonial" <?php checked($value, "testimonial"); ?> />
-                <label for="childlayout-three-<?php echo $id; ?>"><i class="fa fa-commenting-o" aria-hidden="true"></i></label>
-            </div>
-        </div>
-    <?php
+<div class="field-description half next_ssr_metabox">
+    <div class="label">Children Layout</div>
+    <div class="next_ssr_container">
+        <input type="radio" id="childlayout-one-<?php echo $id; ?>" name="childlayout[<?php echo $id; ?>]" value="list"
+            checked <?php checked($value, "list"); ?> />
+        <label for="childlayout-one-<?php echo $id; ?>"><i class="fa fa-list-alt" aria-hidden="true"></i></label>
+        <input type="radio" id="childlayout-two-<?php echo $id; ?>" name="childlayout[<?php echo $id; ?>]" value="image"
+            <?php checked($value, "image"); ?> />
+        <label for="childlayout-two-<?php echo $id; ?>"><i class="fa fa-id-card-o" aria-hidden="true"></i></label>
+        <input type="radio" id="childlayout-three-<?php echo $id; ?>" name="childlayout[<?php echo $id; ?>]"
+            value="testimonial" <?php checked($value, "testimonial"); ?> />
+        <label for="childlayout-three-<?php echo $id; ?>"><i class="fa fa-commenting-o" aria-hidden="true"></i></label>
+    </div>
+</div>
+<?php
     }
 
     public function childlayout_listType_html($value, $id)
     {
-        ?>
+    ?>
 
-        <div class="field-description half next_ssr_metabox">
-            <div class="label">List Type</div>
-            <div class="next_ssr_container">
-                <input type="radio" id="childlayout_listtype-one-<?php echo $id; ?>" name="childlayout_listtype[<?php echo $id; ?>]" value="unordered" checked <?php checked($value, "unordered"); ?> />
-                <label title="Un-Ordered" for="childlayout_listtype-one-<?php echo $id; ?>"><i class="fa fa-list-ul" aria-hidden="true"></i></label>
-                <input type="radio" id="childlayout_listtype-two-<?php echo $id; ?>" name="childlayout_listtype[<?php echo $id; ?>]" value="ordered" <?php checked($value, "ordered"); ?> />
-                <label title="Ordered" for="childlayout_listtype-two-<?php echo $id; ?>"><i class="fa fa-list-ol" aria-hidden="true"></i></label>
-                <input type="radio" id="childlayout_listtype-three-<?php echo $id; ?>" name="childlayout_listtype[<?php echo $id; ?>]" value="icon" <?php checked($value, "icon"); ?> />
-                <label title="Icon" for="childlayout_listtype-three-<?php echo $id; ?>"><i class="fa fa-th-list" aria-hidden="true"></i></label>
-                <input type="radio" id="childlayout_listtype-four-<?php echo $id; ?>" name="childlayout_listtype[<?php echo $id; ?>]" value="none" <?php checked($value, "none"); ?> />
-                <label title="Icon" for="childlayout_listtype-four-<?php echo $id; ?>"><i class="fa fa-bars" aria-hidden="true"></i></label>
-            </div>
-        </div>
-    <?php
+<div class="field-description half next_ssr_metabox">
+    <div class="label">List Type</div>
+    <div class="next_ssr_container">
+        <input type="radio" id="childlayout_listtype-one-<?php echo $id; ?>"
+            name="childlayout_listtype[<?php echo $id; ?>]" value="unordered" checked
+            <?php checked($value, "unordered"); ?> />
+        <label title="Un-Ordered" for="childlayout_listtype-one-<?php echo $id; ?>"><i class="fa fa-list-ul"
+                aria-hidden="true"></i></label>
+        <input type="radio" id="childlayout_listtype-two-<?php echo $id; ?>"
+            name="childlayout_listtype[<?php echo $id; ?>]" value="ordered" <?php checked($value, "ordered"); ?> />
+        <label title="Ordered" for="childlayout_listtype-two-<?php echo $id; ?>"><i class="fa fa-list-ol"
+                aria-hidden="true"></i></label>
+        <input type="radio" id="childlayout_listtype-three-<?php echo $id; ?>"
+            name="childlayout_listtype[<?php echo $id; ?>]" value="icon" <?php checked($value, "icon"); ?> />
+        <label title="Icon" for="childlayout_listtype-three-<?php echo $id; ?>"><i class="fa fa-th-list"
+                aria-hidden="true"></i></label>
+        <input type="radio" id="childlayout_listtype-four-<?php echo $id; ?>"
+            name="childlayout_listtype[<?php echo $id; ?>]" value="none" <?php checked($value, "none"); ?> />
+        <label title="Icon" for="childlayout_listtype-four-<?php echo $id; ?>"><i class="fa fa-bars"
+                aria-hidden="true"></i></label>
+    </div>
+</div>
+<?php
     }
 
     public function childlayout_image_html($icon, $id)
     {
         $img = "";
         if (!empty($icon)) {
-            $imgurl    = wp_get_attachment_image_src($icon, 'thumbnail');
-
+            $imgurl    = wp_get_attachment_image_src($icon, 'full');
+            $hide = '';
             $img = '<img class="icon" src="' . $imgurl[0] . '"/>';
-        } ?>
-        <script>
-            jQuery(document).ready(function() {
-                var $ = jQuery;
-                if ($('.set_custom_images').length > 0) {
-                    if (typeof wp !== 'undefined' && wp.media && wp.media.editor) {
-                        $('.set_custom_images').on('click', function(e) {
-                            e.preventDefault();
-                            var button = $(this);
-                            wp.media.editor.send.attachment = function(props, attachment) {
-                                button.parent().children('.childlayout_image').val(attachment.id);
-                                button.parent().children('.imgPrev').html('<img class="icon" src="' + attachment.url + '"/>');
+        } else {
+            $img = 'Choose Icon/Image';
+            $hide = 'hide';
+        }
 
-                            };
-                            wp.media.editor.open(button);
-                            return false;
-                        });
+    ?>
+<script>
+jQuery(document).ready(function() {
+    var $ = jQuery;
+    if ($('.imgPrev').length > 0) {
+        if (typeof wp !== 'undefined' && wp.media && wp.media.editor) {
+            $('.imgPrev').on('click', function(e) {
+                e.preventDefault();
+                var button = $(this);
+                wp.media.editor.send.attachment = function(props, attachment) {
+                    button.parent().children('.childlayout_image').val(attachment.id);
+                    button.html('<img class="icon" src="' + attachment
+                        .url + '"/>');
+                    button.parent().children('.icondel').removeClass('hide');
 
-                    }
-                }
-
-                $('.icondel').on('click', function(s) {
-                    s.preventDefault();
-                    $(this).parent().children('.imgPrev').html('');
-                    $(this).parent().children('.childlayout_image').val('');
-                    $(this).addClass('hide');
-                });
+                };
+                wp.media.editor.open(button);
+                return false;
             });
-        </script>
 
-        <div class="field-description next_ssr_metabox">
-            <div class="label">Icon</div>
-            <div class='next_ssr_container set_custom_images' id="container_<?php echo $id; ?>">
-                <input type="number" value="" class="childlayout_image imageField" name="childlayout_image[<?php echo $id; ?>]" id="childlayout_image-<?php echo $id; ?>">
-                <label class="set_custom_images" title="Icon" for="childlayout_image-<?php echo $id; ?>"><i class="fa fa-file-image-o" aria-hidden="true"></i></label>
-                <div class='imgPrev'><?php echo $img; ?></div>
-                <div class='icondel hide' id="<?php echo $id; ?>"><i class="fa fa-trash-o" aria-hidden="true"></i></div>
-            </div>
+        }
+    }
+
+    $('.icondel').on('click', function(s) {
+        s.preventDefault();
+        $(this).parent().children('.imgPrev').html('Choose Icon/Image');
+        $(this).parent().children('.childlayout_image').val('');
+        $(this).addClass('hide');
+    });
+});
+</script>
+
+<div class="field-description next_ssr_metabox">
+    <div class="label">Icon</div>
+    <div class='next_ssr_container set_custom_images' id="container_<?php echo $id; ?>">
+        <input hidden type="number" value="<?php echo $icon; ?>" class="childlayout_image imageField"
+            name="childlayout_image[<?php echo $id; ?>]" id="childlayout_image-<?php echo $id; ?>">
+        <div class='imgPrev btn'><?php echo $img; ?></div>
+        <div class='icondel btn <?php echo $hide; ?>' id="<?php echo $id; ?>"><i class="fa fa-trash-o"
+                aria-hidden="true"></i></div>
+    </div>
 
 
-        </div>
+</div>
 <?php
     }
 }
