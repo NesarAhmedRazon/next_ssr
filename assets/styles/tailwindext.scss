@@ -13,11 +13,19 @@
     font-style: italic;
   }
   & .options {
-    display: grid;
-    grid-template-columns: repeat(8, minmax(0, 1fr));
-    grid-gap: 0.5rem;
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    flex-wrap: wrap;
     & .option {
-      display: block;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border: 1px solid #d9d9d9;
+      border-right-width: 0px;
+      &:last-of-type {
+        border-right-width: 1px;
+      }
       & input[type="radio"] {
         position: absolute !important;
         clip: rect(0, 0, 0, 0);
@@ -26,25 +34,26 @@
         border: 0;
         overflow: hidden;
         & + label {
-          background-color: #f0f0f1;
+          background-color: #f0f0f0;
           color: #1d2366;
-          font-size: 1em;
-          line-height: 1;
-          font-weight: 600;
-          letter-spacing: 0.05em;
+          font-size: 1rem;
           text-align: center;
-          padding: 0.8em 1.2em;
-          border: 1px solid #00000033;
-          box-shadow: 0 1px #ffffff1a;
           transition: all 0.3s ease-in-out;
+          padding: 0.5rem 0.7rem;
           &:hover {
             cursor: pointer;
-            border: 1px solid rgba(0, 0, 0, 0.5);
           }
           & img {
             width: 1rem;
             height: 1rem;
           }
+          &:hover {
+            background-color: #e0e0e0;
+          }
+        }
+        &:checked + label {
+          background-color: #3ba155;
+          color: #fff;
         }
       }
     }

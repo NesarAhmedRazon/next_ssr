@@ -13,60 +13,10 @@ final class MetaChildItemLayout extends next_ssr
     {
         add_action('wp_nav_menu_item_custom_fields', [$this, 'next_ssr_levelthree_type'], 10, 2);
         add_action('wp_update_nav_menu_item', [$this, 'next_ssr_levelthree_type_update'], 10, 2);
-        add_action('graphql_register_types', [$this, 'addToGraphQl']);
     }
 
-    public function addToGraphQl()
-    {
-        register_graphql_object_type(
-            'Layout',
-            [
-                'description' => __("2nd Level Column's Item Layout", 'next_ssr'),
-                'fields' => [
-                    'type' => [
-                        'type' => 'String',
-                        'description' => __('Item Type', 'next_ssr'),
-                    ],
-                    'display' => [
-                        'type' => 'String',
-                        'description' => __('Item Style', 'next_ssr'),
-                    ],
 
-                    'icon' => [
-                        'type' => 'String',
-                        'description' => __('Icon URL', 'next_ssr'),
-                    ],
-                ]
-            ]
-        );
-        register_graphql_field('MenuItem', 'layout', [
-            /**
-             * expand meta key Added to WP GraphQl
-             */
-            'type' => 'Layout',
-            'description' => __('Set Layout for NEXT SSR Menu\'s 3rd Level Items', 'next_ssr'),
-            'resolve' => function (\WPGraphQL\Model\MenuItem $menu_item, $args, $context, $info) {
-                if (!isset($menu_item->databaseId)) {
-                    return null;
-                }
-                $data['type'] = $childlayout = get_post_meta($menu_item->databaseId, 'childlayout', true);
-                if ($childlayout == 'list') {
-                    $data['display'] = get_post_meta($menu_item->databaseId, 'childlayout_listtype', true);
-                } elseif ($childlayout == 'testimonial') {
-                    $data['display'] = get_post_meta($menu_item->databaseId, 'childlayout_testimonial', true);
-                } else {
-                    $data['display'] = "";
-                }
-                $icon = get_post_meta($menu_item->databaseId, 'childlayout_image', true);
-                if (!empty($icon)) {
-                    $imgurl    = wp_get_attachment_image_src($icon, 'full');
-                    $data['icon'] = $imgurl[0];
-                }
 
-                return $data;
-            }
-        ]);
-    }
     public function next_ssr_levelthree_type($id, $item)
     {
         if ($item->menu_item_parent != 0) {
@@ -84,7 +34,6 @@ final class MetaChildItemLayout extends next_ssr
             if ($level == 3) {
                 $icon = get_post_meta($id, 'childlayout_image', true);
                 $this->childlayout_image_html($icon, $id);
-                $this->childlayout_nextIcon_html($icon, $id);
             }
         }
     }
@@ -181,45 +130,11 @@ final class MetaChildItemLayout extends next_ssr
 </div>
 <?php
     }
-    public function childlayout_nextIcon_html($icon_data, $id)
-    {
-        $icons = [
-            [
-                'name' => 'Users',
-                'file' => 'assets/nextIcons/Users.svg',
-            ],
-            [
-                'name' => 'GraduationCap',
-                'file' => 'assets/nextIcons/GraduationCap.svg',
-            ],
-            [
-                'name' => 'Boxes',
-                'file' => 'assets/nextIcons/Boxes.svg',
-            ],
-            [
-                'name' => 'HeadSet',
-                'file' => 'assets/nextIcons/HeadSet.svg',
-            ]
-        ]
-    ?>
-<div class="field-description next_ssr_metabox">
-    <div class="label">NextJs Icon</div>
 
-    <div class="options">
-
-        <?php
-                foreach ($icons as $icon) {
-                    echo '<div class="option">';
-                    echo '<input class="radio_input" type="radio" hidden name="color" value="" id="color-" />';
-                    echo '<label for=""><img src="' . plugin_dir_url(dirname(__FILE__)) . $icon['file'] . '" alt="' . $icon['name'] . '" /></label>';
-                    echo '</div>';
-                } ?>
-    </div>
-</div>
-<?php
-    }
     public function childlayout_image_html($icon, $id)
     {
+        $x = get_the_title($icon);
+        var_dump(html_entity_decode($x));
         $img = "";
         if (!empty($icon)) {
             $imgurl    = wp_get_attachment_image_src($icon, 'full');

@@ -1,0 +1,102 @@
+@font-face {
+  font-family: 'NextSSR';
+  src:  url('fonts/NextSSR.eot?o74gw6');
+  src:  url('fonts/NextSSR.eot?o74gw6#iefix') format('embedded-opentype'),
+    url('fonts/NextSSR.ttf?o74gw6') format('truetype'),
+    url('fonts/NextSSR.woff?o74gw6') format('woff'),
+    url('fonts/NextSSR.svg?o74gw6#NextSSR') format('svg');
+  font-weight: normal;
+  font-style: normal;
+  font-display: block;
+}
+
+[class^="icon-"], [class*=" icon-"] {
+  /* use !important to prevent issues with browser extensions that change fonts */
+  font-family: 'NextSSR' !important;
+  speak: never;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+
+  /* Better Font Rendering =========== */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-Smile .path1:before {
+  content: "\e900";
+  color: rgb(255, 204, 78);
+}
+.icon-Smile .path2:before {
+  content: "\e901";
+  margin-left: -1em;
+  color: rgb(232, 95, 40);
+}
+.icon-Smile .path3:before {
+  content: "\e902";
+  margin-left: -1em;
+  color: rgb(232, 95, 40);
+}
+.icon-Smile .path4:before {
+  content: "\e903";
+  margin-left: -1em;
+  color: rgb(103, 69, 1);
+}
+.icon-Smile .path5:before {
+  content: "\e904";
+  margin-left: -1em;
+  color: rgb(255, 255, 255);
+}
+.icon-Boxes:before {
+  content: "\e906";
+}
+.icon-GraduationCap:before {
+  content: "\e907";
+}
+.icon-HeadSet:before {
+  content: "\e908";
+}
+.icon-Users:before {
+  content: "\e909";
+}
+.icon-LeftTestimonial:before {
+  content: "\e912";
+}
+.icon-RignTestimonial:before {
+  content: "\e913";
+}
+.icon-Descending:before {
+  content: "\e911";
+}
+.icon-Ascending:before {
+  content: "\e90f";
+}
+.icon-icon_right:before {
+  content: "\e90e";
+}
+.icon-icon_left:before {
+  content: "\e910";
+}
+.icon-icon_bot:before {
+  content: "\e91b";
+}
+.icon-icon_top:before {
+  content: "\e926";
+}
+.icon-ListParagraph:before {
+  content: "\e90d";
+}
+.icon-TallyfyIcon:before {
+  content: "\e905";
+}
+.icon-list-ul:before {
+  content: "\f0ca";
+}
+.icon-list-ol:before {
+  content: "\f0cb";
+}
+.icon-sort-numeric-asc:before {
+  content: "\f162";
+}

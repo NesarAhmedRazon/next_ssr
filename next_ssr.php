@@ -59,7 +59,7 @@ if (!class_exists('next_ssr')) {
         public function style_toAdmin()
         {
             wp_enqueue_style('next_ssr_fa', 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css', '', '', 'all');
-
+            wp_enqueue_style('next_ssr_icon', plugin_dir_url(__FILE__) . 'assets/styles/NextSSR-v1.2/style.css', '', '', 'all');
             wp_enqueue_style('next_ssr_tailwind', plugin_dir_url(__FILE__) . 'assets/styles/tailwindext.css', '', '', 'all');
             wp_enqueue_media();
         }
@@ -170,17 +170,19 @@ if (!class_exists('next_ssr')) {
          */
         public function radio_html($value, $id)
         {
-            ?>
+?>
 
-            <div class="field-description half next_ssr_metabox">
-                <div class="label">Expand Column</div>
-                <div class="next_ssr_container boolian">
-                    <input type="radio" id="radio-one-<?php echo $id; ?>" name="expand[<?php echo $id; ?>]" value="yes" checked <?php checked($value, 'yes'); ?> />
-                    <label for="radio-one-<?php echo $id; ?>">Yes</label>
-                    <input type="radio" id="radio-two-<?php echo $id; ?>" name="expand[<?php echo $id; ?>]" value="no" <?php checked($value, 'no'); ?> />
-                    <label for="radio-two-<?php echo $id; ?>">No</label>
-                </div>
-            </div>
+<div class="field-description half next_ssr_metabox">
+    <div class="label">Expand Column</div>
+    <div class="next_ssr_container boolian">
+        <input type="radio" id="radio-one-<?php echo $id; ?>" name="expand[<?php echo $id; ?>]" value="yes" checked
+            <?php checked($value, 'yes'); ?> />
+        <label for="radio-one-<?php echo $id; ?>">Yes</label>
+        <input type="radio" id="radio-two-<?php echo $id; ?>" name="expand[<?php echo $id; ?>]" value="no"
+            <?php checked($value, 'no'); ?> />
+        <label for="radio-two-<?php echo $id; ?>">No</label>
+    </div>
+</div>
 <?php
         }
     }
@@ -188,4 +190,11 @@ if (!class_exists('next_ssr')) {
 
 
 $next_ssr = new next_ssr();
-require plugin_dir_path(NEXT_SSR) . 'metas/next_ssr_childType.php';
+$metas = [
+    'GraphqlExtender',
+    'next_ssr_childType',
+    'NextIconMeta',
+];
+foreach ($metas as $meta) {
+    require plugin_dir_path(NEXT_SSR) . 'metas/' . $meta . '.php';
+}
